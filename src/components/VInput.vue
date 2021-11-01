@@ -5,12 +5,14 @@
         > {{ config.label }} </label>
         <input :id="config.id"
                :class="config.class"
+               @input="handleInputValue($event)"
         >
     </div>
 </template>
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue';
 import { IVInput } from '@/types';
+import inputs from '@/composables/inputs';
 
 export default defineComponent({
     props: {
@@ -20,16 +22,18 @@ export default defineComponent({
         }
 
     },
-    setup(props, { attrs }) {
+    emits: ['update:value'],
+    setup(props, { attrs, emit }) {
         const attributes = computed(() => attrs);
-
+        const { updateInputValue } = inputs();
+        function handleInputValue(e:Event) {
+            emit('update:value', updateInputValue(e));
+        }
         return {
+            handleInputValue,
             attributes,
         };
     },
-    mounted() {
-        console.log('attributes', this.attributes);
-    }
 });
 </script>
 <style lang="scss" scoped>
