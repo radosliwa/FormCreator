@@ -1,48 +1,55 @@
 <template>
-    <form class="v-form">
+    <form ref="v-form"
+          class="v-form"
+    >
         <slot />
+        <slot name="before-form" />
         <component :is="component.component"
-                   v-for="(component, i) in config"
+                   v-for="(component, i) in formComponents"
                    :key="component.label + i"
                    v-model:value="component.value"
                    :config="component"
+                   @submit-clicked="submitForm"
+                   @update:value="$emit('value-update', component)"
         />
+        <slot name="after-form" />
     </form>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType, computed } from 'vue';
 // components
-import VInput from './VInput.vue';
+import VInput from './subComponents/VInput.vue';
+import VSubmit from './subComponents/VSubmit.vue';
+import VCheckbox from './subComponents/VCheckbox.vue';
+
 // types
-import { IVInput, TFormComponent } from '@/types';
+import { TFormComponent, IGroupConfig } from '@/types';
 
 export default defineComponent({
+    name: 'VForm',
     components: {
         VInput,
+        VSubmit,
+        VCheckbox
     },
-    data: () => ({
-        config: [
-            {
-                component: 'VInput',
-                label: 'First Name',
-                labelHidden: false,
-                type: 'text',
-                value: '',
-                name: 'first-name',
-                class: 'v-input-field',
-                id: 'first-name',
-            } as IVInput,
-            {
-                component: 'VInput',
-                label: 'E-mail',
-                labelHidden: false,
-                type: 'email',
-                value: '',
-                name: 'email',
-                class: 'v-input-field',
-                id: 'email',
-            } as IVInput,
-        ] as TFormComponent[],
-    }),
+    props: {
+        config: {
+            type: Array as PropType<TFormComponent|IGroupConfig[]>,
+            required: true
+        }
+    },
+    emits: ['form-submitted', 'value-update'],
+    setup(props, { emit }) {
+        function submitForm():void {
+            emit('form-submitted', props.config);
+        }
+        const formComponents = computed(() => (props.config as any)
+            .filter((item:TFormComponent|IGroupConfig) => !Object.prototype.hasOwnProperty.call(item, 'groupValue')));
+
+        return {
+            submitForm,
+            formComponents
+        };
+    }
 });
 </script>

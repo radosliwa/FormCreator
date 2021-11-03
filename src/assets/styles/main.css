@@ -1,5 +1,9 @@
-.container {
-  display: -ms-grid;
-  display: grid;
+@import './reset.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.v-form {
+    @apply border-2 p-10 w-auto;
 }
-/*# sourceMappingURL=main.css.map */
+
+@import './components/main.scss'

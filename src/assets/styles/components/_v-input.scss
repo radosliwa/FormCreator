@@ -1,0 +1,15 @@
+label {
+    padding: 0.5rem 0;
+}
+
+@layer components {
+    .v-input {
+        @apply flex flex-col relative;
+    }
+    .v-input-field {
+        @apply flex flex-col p-2;
+    }
+    .v-checkbox {
+        @apply flex flex-col justify-center;
+    }
+}
