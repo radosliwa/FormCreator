@@ -2,6 +2,7 @@ type TInputType = 'text' | 'email' | 'number' | 'checkbox' | 'submit';
 type TInputRole = 'button';
 type TFormComponentName = 'VInput' | 'VCheckbox' | 'VSubmit';
 type TCheckboxValueGroup = unknown[];
+type TGroupValue = boolean | string | number | (string | number)[] |  any[]
 interface IVInput {
     component: TFormComponentName;
     heading?: string;
@@ -21,8 +22,8 @@ interface IVInput {
 }
 interface IGroupConfig {
     group: string | number;
-    groupValue: boolean | string | number | (string | number)[] | undefined;
+    groupValue: TGroupValue;
 }
 type TFormComponent = IVInput;
 
-export { IVInput, TFormComponentName, TFormComponent, TInputType, IGroupConfig };
+export { IVInput, TFormComponentName, TFormComponent, TInputType, IGroupConfig, TGroupValue };

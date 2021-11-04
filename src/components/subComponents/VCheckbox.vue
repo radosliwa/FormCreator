@@ -30,22 +30,36 @@ export default defineComponent({
         config: {
             type: Object as PropType<IVInput>,
             required: true
+        },
+        groupValue: {
+            type: Array as PropType<any[]>,
+            default: () => []
         }
 
     },
     inheritAttrs: false,
-    emits: ['update:value'],
+    emits: ['update:value', 'update:group-value'],
     setup(props, { attrs, emit }) {
         const attributes:ComputedRef<typeof attrs> = computed(() => attrs);
+        const checkboxGroup:ComputedRef<string|number|undefined> = computed(() => props.config.group);
         const computedValue = computed({
             get(): boolean | string | number | any[] | undefined {
                 return props.config.value;
             },
             set(value: any | any[]) {
-                emit('update:value', value);
+                if (!checkboxGroup.value) {
+                    emit('update:value', value);
+                } else {
+                    emit('update:group-value',
+                        {
+                            group: checkboxGroup.value,
+                            value: props.config.value
+                        });
+                }
             },
         });
         return {
+            checkboxGroup,
             computedValue,
             attributes,
         };
