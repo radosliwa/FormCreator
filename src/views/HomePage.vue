@@ -2,9 +2,8 @@
     <div id="home-page"
          class="flex flex-col items-center"
     >
-        <VForm
-            class="w-full lg:w-2/5"
-            :config="config"
+        <VForm class="w-full lg:w-2/5"
+               :config="config"
         />
     </div>
 </template>
@@ -19,7 +18,7 @@ import { IVInput, TFormComponent, IGroupConfig } from '@/types';
 export default defineComponent({
     name: 'Homepage',
     components: {
-        VForm,
+        VForm
     },
     data: () => ({
         config: [
@@ -32,7 +31,9 @@ export default defineComponent({
                 name: 'first-name',
                 class: 'v-input-field',
                 id: 'first-name',
-                placeholder: 'First Name'
+                placeholder: 'First Name',
+                validateOn: 'input',
+                validations: [{ rule: 'non-empty', errorMsg: 'input cannot be empty!' }, 'only-letters']
             } as IVInput,
             {
                 component: 'VInput',
@@ -54,9 +55,13 @@ export default defineComponent({
                 name: 'email',
                 class: 'v-input-field',
                 id: 'email',
+                validateOn: 'blur',
+                validations: [{ rule: 'non-empty', errorMsg: 'input cannot be empty!' }, { rule: 'email', errorMsg: 'not a valid email' },
+                ]
             } as IVInput,
             {
                 component: 'VCheckbox',
+                heading: '<h3 style="text-align:center;">Checkboxes section</h3>',
                 label: 'Yes checkbox',
                 labelHidden: true,
                 description: 'I agree',
@@ -66,6 +71,9 @@ export default defineComponent({
                 name: 'checkbox',
                 class: 'v-checkbox-field',
                 id: 'checkbox-1',
+                validateOn: 'blur',
+                validations: [{ rule: 'required' },
+                ]
             } as IVInput,
             {
                 component: 'VCheckbox',
@@ -119,8 +127,8 @@ export default defineComponent({
                 value: 'SUBMIT',
                 disabled: false
             } as IVInput
-        ] as TFormComponent|IGroupConfig[],
-    }),
+        ] as TFormComponent | IGroupConfig[]
+    })
 });
 </script>
 

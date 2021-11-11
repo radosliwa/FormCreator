@@ -1,9 +1,9 @@
 export default () => {
-    function updateInputValue(e: Event) {
+    function interceptInputValue(e: Event) {
         const { value } = e.target as HTMLInputElement;
         return value;
     }
     return {
-        updateInputValue
+        interceptInputValue
     };
 };
