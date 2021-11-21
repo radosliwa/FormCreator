@@ -26,7 +26,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, computed, PropType, ComputedRef, ref } from 'vue';
-import { IVInput, TInputValue } from '@/types';
+import { IVInput, TInputValue, IGroupConfig } from '@/types';
 import { validate } from '@/Validation';
 
 export default defineComponent({
@@ -37,8 +37,8 @@ export default defineComponent({
             required: true
         },
         groupValue: {
-            type: Array as PropType<any[]>,
-            default: () => []
+            type: Object as PropType<IGroupConfig>,
+            default: () => {}
         }
 
     },
@@ -70,7 +70,7 @@ export default defineComponent({
                 handleValidation();
             }
         }
-        function handleValidation(inputValue: TInputValue = props.config.value, timeout:number = 0): string | void {
+        function handleValidation(inputValue: TInputValue = props.config.value, timeout = 0): string | void {
             setTimeout(() => {
                 validationMsg.value = validate(inputValue, props.config.validations);
             }, timeout);

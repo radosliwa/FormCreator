@@ -4,17 +4,18 @@
     >
         <slot />
         <slot name="before-form" />
-        <component :is="component.component"
-                   v-for="(component, i) in formComponents"
-                   :key="component.label + i"
-                   v-model:value="component.value"
-                   v-model:groupValue="groupValue"
-                   :config="component"
-                   @submit-clicked="submitForm"
-                   @update:value="$emit('value-update', component)"
-                   @update:group-value="updateGroupValue"
+        <component
+            :is="component.component"
+            v-for="(component, i) in formComponents"
+            :key="component.label + i"
+            v-model:value="component.value"
+            v-model:groupValue="groupValue"
+            :config="component"
+            @submit-clicked="submitForm"
+            @update:value="$emit('value-update', component)"
+            @update:group-value="updateGroupValue"
         />
-        <p v-for="(group, i ) in formGroups"
+        <p v-for="(group, i) in formGroups"
            :key="i + group.group"
         >
             <span>Checkbox group nr: {{ group.group }}</span>
@@ -24,7 +25,7 @@
     </form>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, computed, ref, unref } from 'vue';
+import { defineComponent, PropType, computed, ref } from 'vue';
 // components
 import VInput from './subComponents/VInput.vue';
 import VSubmit from './subComponents/VSubmit.vue';
@@ -42,27 +43,26 @@ export default defineComponent({
     },
     props: {
         config: {
-            type: Array as PropType<TFormComponent|IGroupConfig[]>,
+            type: Array as PropType<TFormComponent | IGroupConfig[]>,
             required: true
         }
     },
     emits: ['form-submitted', 'value-update', 'group-value-update'],
     setup(props, { emit }) {
-        function submitForm():void {
+        function submitForm(): void {
             emit('form-submitted', props.config);
         }
-        const groupValue:any[] = [];
+        const groupValue: IGroupConfig | {} = {};
         // to exclude groupped components' configuration
         const formComponents = computed(() => (props.config as any)
-            .filter((item:TFormComponent|IGroupConfig) => !Object.prototype.hasOwnProperty.call(item, 'groupValue')));
+            .filter((item: TFormComponent | IGroupConfig) => !Object.prototype.hasOwnProperty.call(item, 'groupValue')));
         // for more than one checkbox to select from. There may be many groupped checkboxes
         const formGroups = computed(() => (props.config as any)
-            .filter((item:TFormComponent|IGroupConfig) => Object.prototype.hasOwnProperty.call(item, 'groupValue')));
+            .filter((item: TFormComponent | IGroupConfig) => Object.prototype.hasOwnProperty.call(item, 'groupValue')));
 
-        function updateGroupValue(payload:any) {
+        function updateGroupValue(payload: any) {
             const { group, value } = payload;
-            const groupValueToUpdate = ref<IGroupConfig>(formGroups.value
-                .find((el:IGroupConfig) => el.group === group));
+            const groupValueToUpdate = ref<IGroupConfig>(formGroups.value.find((el: IGroupConfig) => el.group === group));
             const { groupValue } = groupValueToUpdate.value;
             const indexOfExistingValue = groupValue.indexOf(value);
 
@@ -83,6 +83,5 @@ export default defineComponent({
             updateGroupValue
         };
     },
-
 });
 </script>

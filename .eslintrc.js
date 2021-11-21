@@ -6,11 +6,11 @@ module.exports = {
         node: true
     },
 
-    extends: [
-        "plugin:vue/vue3-recommended",
-        "eslint:recommended",
-        "@vue/typescript/recommended"
-    ],
+    // extends: [
+    //     'plugin:vue/vue3-recommended',
+    //     'eslint:recommended',
+    //     '@vue/typescript/recommended'
+    // ],
 
     ignorePatterns: ['**/*.js.snap'],
 
@@ -97,7 +97,7 @@ module.exports = {
         'no-trailing-spaces': 'warn',
         'no-undef': 'warn',
         'no-unused-vars': 'warn',
-        'semi': 'warn',
+        semi: 'warn',
         'import/no-extraneous-dependencies': [
             0,
             {
@@ -127,10 +127,10 @@ module.exports = {
         'no-shadow': 'off',
         'no-param-reassign': 'warn',
         'no-return-await': 'warn',
-        "comma-dangle": 'off'
+        'comma-dangle': 'off'
     },
 
-    'extends': [
+    extends: [
         'airbnb-base',
         'plugin:vue/vue3-strongly-recommended',
         '@vue/typescript'
@@ -138,5 +138,44 @@ module.exports = {
 
     parserOptions: {
         parser: '@typescript-eslint/parser'
-    }
-}
+    },
+
+    overrides: [
+        {
+            files: [
+                '**/__tests__/*.{j,t}s?(x)',
+                '**/tests/unit/**/*.spec.{j,t}s?(x)'
+            ],
+            env: {
+                jest: true
+            }
+        },
+        {
+            files: [
+                '**/__tests__/*.{j,t}s?(x)',
+                '**/tests/unit/**/*.spec.{j,t}s?(x)'
+            ],
+            env: {
+                jest: true
+            }
+        },
+        {
+            files: [
+                '**/__tests__/*.{j,t}s?(x)',
+                '**/tests/unit/**/*.spec.{j,t}s?(x)'
+            ],
+            env: {
+                jest: true
+            }
+        },
+        {
+            files: [
+                '**/__tests__/*.{j,t}s?(x)',
+                '**/tests/unit/**/*.spec.{j,t}s?(x)'
+            ],
+            env: {
+                jest: true
+            }
+        }
+    ]
+};

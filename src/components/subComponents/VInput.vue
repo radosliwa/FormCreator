@@ -13,7 +13,9 @@
             @input="handleInputValue($event)"
             @blur="handleBlur"
         >
-        <p v-if="validationMsg">
+        <p v-if="validationMsg"
+           class="validation-msg"
+        >
             {{ validationMsg }}
         </p>
     </div>
@@ -53,7 +55,7 @@ export default defineComponent({
                 handleValidation();
             }
         }
-        function handleValidation(inputValue: TInputValue = props.config.value, timeout:number = 0): string | void {
+        function handleValidation(inputValue: TInputValue = props.config.value, timeout = 0): string | void {
             setTimeout(() => {
                 validationMsg.value = validate(inputValue, props.config.validations);
             }, timeout);
