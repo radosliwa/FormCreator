@@ -30,6 +30,7 @@ import { defineComponent, PropType, computed, ref } from 'vue';
 import VInput from './subComponents/VInput.vue';
 import VSubmit from './subComponents/VSubmit.vue';
 import VCheckbox from './subComponents/VCheckbox.vue';
+import VRadio from './subComponents/VRadio.vue';
 
 // types
 import { TFormComponent, IGroupConfig } from '@/types';
@@ -39,7 +40,8 @@ export default defineComponent({
     components: {
         VInput,
         VSubmit,
-        VCheckbox
+        VCheckbox,
+        VRadio
     },
     props: {
         config: {
@@ -49,9 +51,6 @@ export default defineComponent({
     },
     emits: ['form-submitted', 'value-update', 'group-value-update'],
     setup(props, { emit }) {
-        function submitForm(): void {
-            emit('form-submitted', props.config);
-        }
         const groupValue: IGroupConfig | {} = {};
         // to exclude groupped components' configuration
         const formComponents = computed(() => (props.config as any)
@@ -60,6 +59,9 @@ export default defineComponent({
         const formGroups = computed(() => (props.config as any)
             .filter((item: TFormComponent | IGroupConfig) => Object.prototype.hasOwnProperty.call(item, 'groupValue')));
 
+        function submitForm(): void {
+            emit('form-submitted', props.config);
+        }
         function updateGroupValue(payload: any) {
             const { group, value } = payload;
             const groupValueToUpdate = ref<IGroupConfig>(formGroups.value.find((el: IGroupConfig) => el.group === group));

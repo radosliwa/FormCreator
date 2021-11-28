@@ -1,7 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import VInput from '@/components/subComponents/VInput.vue';
-import VCheckbox from '@/components/subComponents/VCheckbox.vue';
 
 describe('VInput.vue', () => {
     const config = {

@@ -72,7 +72,7 @@ const config = [
       value: 'A',
       name: 'checkbox',
       class: 'v-checkbox-field',
-      id: 'checkbox-2',
+      id: 'checkbox-A',
       group: 1,
   } as IVInput,
   {
@@ -84,7 +84,7 @@ const config = [
       value: 'B',
       name: 'checkbox',
       class: 'v-checkbox-field',
-      id: 'checkbox-2',
+      id: 'checkbox-B',
       group: 1,
   } as IVInput,
   {
@@ -96,13 +96,41 @@ const config = [
       value: 'C',
       name: 'checkbox',
       class: 'v-checkbox-field',
-      id: 'checkbox-2',
+      id: 'checkbox-C',
       group: 1,
   } as IVInput,
   {
       group: 1,
       groupValue: [],
   } as IGroupConfig,
+  {
+      component: 'VRadio',
+      name: 'VRadio',
+      heading: 'RADIOS',
+      value: '',
+      choices: [
+          {
+              label: 'Radio A',
+              disabled: false,
+              labelHidden: false,
+              type: 'radio',
+              value: 'A',
+              name: 'radio',
+              class: 'v-radio',
+              id: 'radio-A'
+          },
+          {
+              label: 'Radio B',
+              disabled: false,
+              labelHidden: false,
+              type: 'radio',
+              value: 'B',
+              name: 'radio',
+              class: 'v-radio',
+              id: 'radio-B'
+          }
+      ]as IVInput[],
+  } as IVInput,
   {
       component: 'VSubmit',
       label: 'submit-button',

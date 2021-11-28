@@ -1,11 +1,11 @@
 import { TValidationRule } from './Validation';
 
-type TInputType = 'text' | 'email' | 'number' | 'checkbox' | 'submit';
+type TInputType = 'text' | 'email' | 'number' | 'checkbox' | 'submit' | 'radio';
 type TInputRole = 'button';
-type TFormComponentName = 'VInput' | 'VCheckbox' | 'VSubmit';
-type TGroupValue = any[];
+type TFormComponentName = 'VInput' | 'VCheckbox' | 'VSubmit' | 'VRadio';
+type TGroupValue = any[] ;
 type TValidateOn = 'blur' | 'input' | 'never';
-type TInputValue = string | number | boolean | undefined
+type TInputValue = string | number | boolean | undefined;
 interface IValidationConfig {
   rule: TValidationRule;
   errorMsg?: string;
@@ -14,6 +14,7 @@ interface IValidationConfig {
 type TValidationType = IValidationConfig | TValidationRule;
 interface IVInput {
   component: TFormComponentName;
+  choices?:[]|any[];
   heading?: string;
   value?: TInputValue;
   label: string;
@@ -47,5 +48,5 @@ export {
     TGroupValue,
     TValidationType,
     IValidationConfig,
-    TInputValue
+    TInputValue,
 };
